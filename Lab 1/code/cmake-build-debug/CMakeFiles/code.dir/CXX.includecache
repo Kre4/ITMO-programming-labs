@@ -12,6 +12,20 @@ C:/JetBrains/Labs/Lab 1/code/geometry/point.h
 iostream
 -
 
+C:/JetBrains/Labs/Lab 1/code/geometry/Chain.h
+BrokenLine.h
+C:/JetBrains/Labs/Lab 1/code/geometry/BrokenLine.h
+
+C:/JetBrains/Labs/Lab 1/code/geometry/Polygon.h
+Chain.h
+C:/JetBrains/Labs/Lab 1/code/geometry/Chain.h
+math.h
+C:/JetBrains/Labs/Lab 1/code/geometry/math.h
+
+C:/JetBrains/Labs/Lab 1/code/geometry/Triangle.h
+Polygon.h
+C:/JetBrains/Labs/Lab 1/code/geometry/Polygon.h
+
 C:/JetBrains/Labs/Lab 1/code/geometry/point.h
 
 C:/JetBrains/Labs/Lab 1/code/main.cpp
@@ -21,4 +35,10 @@ geometry/point.h
 C:/JetBrains/Labs/Lab 1/code/geometry/point.h
 geometry/BrokenLine.h
 C:/JetBrains/Labs/Lab 1/code/geometry/BrokenLine.h
+geometry/Chain.h
+C:/JetBrains/Labs/Lab 1/code/geometry/Chain.h
+geometry/Polygon.h
+C:/JetBrains/Labs/Lab 1/code/geometry/Polygon.h
+geometry/Triangle.h
+C:/JetBrains/Labs/Lab 1/code/geometry/Triangle.h
 

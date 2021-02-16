@@ -10,10 +10,12 @@ private:
     Point *points;
 public:
 
-
-    explicit BrokenLine(std::size_t n = 1) :
+    explicit BrokenLine(std::size_t n = 0) :
             N(n) {
-        points = new Point[N];
+        if (N == 0)
+            points = nullptr;
+        else
+            points = new Point[N];
     }
 
     BrokenLine(std::size_t n, Point *array) {
@@ -32,7 +34,7 @@ public:
         }
     }
 
-    BrokenLine &operator=(const BrokenLine& bl) {
+    BrokenLine &operator=(const BrokenLine &bl) {
         N = bl.N;
         points = new Point[N];
         for (int i = 0; i < N; i++) {
@@ -40,11 +42,18 @@ public:
         }
         return *this;
     }
-    Point& operator[](const int index){
+
+    BrokenLine &operator=(const std::nullptr_t aNullptr) {
+        N = 0;
+        points = nullptr;
+        return *this;
+    }
+
+    Point &operator[](const int index) {
         return points[index];
     }
 
-    void SetPoint(int index, const Point& point) {
+    void SetPoint(int index, const Point &point) {
         if (index >= N)
             throw std::out_of_range("Incorrect index");
         points[index] = point;
@@ -52,13 +61,17 @@ public:
 
     void SetSize(int n) {
         Point *tmp = new Point[N];
-        for (int i=0;i<N;i++)
+        for (int i = 0; i < N; i++)
             tmp[i] = points[i];
         N = n;
         points = new Point[N];
-        for (int i=0;i<N;i++)
-            points[i]=tmp[i];
-        delete [] tmp;
+        for (int i = 0; i < N; i++)
+            points[i] = tmp[i];
+        delete[] tmp;
+    }
+
+    int Size() {
+        return N;
     }
 
 
