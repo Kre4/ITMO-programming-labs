@@ -1,0 +1,20 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+C:/JetBrains/Labs/Lab 1/code/geometry.h
+vector
+-
+stdarg.h
+-
+
+C:/JetBrains/Labs/Lab 1/code/main.cpp
+iostream
+-
+geometry.h
+C:/JetBrains/Labs/Lab 1/code/geometry.h
+
