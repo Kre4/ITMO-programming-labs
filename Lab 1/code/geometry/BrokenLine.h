@@ -1,0 +1,71 @@
+#ifndef CODE_BROKENLINE_H
+#define CODE_BROKENLINE_H
+
+#include "point.h"
+#include <iostream>
+
+class BrokenLine {
+private:
+    std::size_t N;
+    Point *points;
+public:
+
+
+    explicit BrokenLine(std::size_t n = 1) :
+            N(n) {
+        points = new Point[N];
+    }
+
+    BrokenLine(std::size_t n, Point *array) {
+        N = n;
+        points = new Point[N];
+        for (int i = 0; i < N; i++) {
+            points[i] = array[i];
+        }
+    }
+
+    BrokenLine(const BrokenLine &bl) :
+            N(bl.N) {
+        points = new Point[N];
+        for (int i = 0; i < N; i++) {
+            points[i] = bl.points[i];
+        }
+    }
+
+    BrokenLine &operator=(const BrokenLine& bl) {
+        N = bl.N;
+        points = new Point[N];
+        for (int i = 0; i < N; i++) {
+            points[i] = bl.points[i];
+        }
+        return *this;
+    }
+    Point& operator[](const int index){
+        return points[index];
+    }
+
+    void SetPoint(int index, const Point& point) {
+        if (index >= N)
+            throw std::out_of_range("Incorrect index");
+        points[index] = point;
+    }
+
+    void SetSize(int n) {
+        Point *tmp = new Point[N];
+        for (int i=0;i<N;i++)
+            tmp[i] = points[i];
+        N = n;
+        points = new Point[N];
+        for (int i=0;i<N;i++)
+            points[i]=tmp[i];
+        delete [] tmp;
+    }
+
+
+    ~BrokenLine() {
+        delete[] points;
+    }
+
+};
+
+#endif //CODE_BROKENLINE_H

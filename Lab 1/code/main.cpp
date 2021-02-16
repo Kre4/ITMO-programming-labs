@@ -1,23 +1,22 @@
 #include <iostream>
-#include "geometry.h"
-class lol{
-private:
-    int x;
-public:
-    explicit lol(int x){
-        this->x=x;
-    }
-
-};
+#include "geometry/point.h"
+#include "geometry/BrokenLine.h"
 int main() {
+    //Point
+    std::cout<<"Point test\n";
     Point point(1,2);
-
+    std::cout<<point.GetX()<<"\n";
+    point.SetCord(-9,5);
+    std::cout<<point.GetX()<<"\n";
     Point point1(5,6);
-    point.SetCord(5,5);
     point = point1;
     std::cout<<point.GetX()<<"\n";
-    //BrokenLine brokenLine(3, 1.0,1.0,2.0,2.0,3.0,3.0);
-    BrokenLine brokenLine(1,3.0,2.0);
-    BrokenLine bl();
+    //Broken Line
+    std::cout<<"Broken Line test\n";
+    BrokenLine brokenLine(2);
+    brokenLine.SetPoint(0,point);
+    brokenLine.SetPoint(1,point1);
+    std::cout<<brokenLine[0].GetX();
+    //Chain
     return 0;
 }

@@ -3,4 +3,4 @@ project(code)
 
 set(CMAKE_CXX_STANDARD 20)
 
-add_executable(code main.cpp cmake-build-debug/point.h)
+add_executable(code main.cpp geometry/point.h geometry/BrokenLine.h geometry/Chain.h)

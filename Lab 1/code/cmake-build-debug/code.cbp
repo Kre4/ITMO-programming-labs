@@ -80,7 +80,13 @@
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="C:/JetBrains/Labs/Lab 1/code/cmake-build-debug/point.h">
+		<Unit filename="C:/JetBrains/Labs/Lab 1/code/geometry/BrokenLine.h">
+			<Option target="code"/>
+		</Unit>
+		<Unit filename="C:/JetBrains/Labs/Lab 1/code/geometry/Chain.h">
+			<Option target="code"/>
+		</Unit>
+		<Unit filename="C:/JetBrains/Labs/Lab 1/code/geometry/point.h">
 			<Option target="code"/>
 		</Unit>
 		<Unit filename="C:/JetBrains/Labs/Lab 1/code/main.cpp">
