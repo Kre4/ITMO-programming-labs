@@ -3,24 +3,28 @@
 
 #include "Polygon.h"
 
-class Triangle: public Polygon{
+class Triangle : public Polygon {
 public:
     explicit Triangle(const BrokenLine &br) : Polygon(br) {
         brokenLine = br;
-        if (brokenLine.Size()!=3){
+        if (brokenLine.Size() != 3) {
             brokenLine = nullptr;
         }
     }
+
     explicit Triangle(Chain &chain1) : Polygon(chain1) {
         Triangle tr(chain1.GetPoints());
         *this = tr;
     }
+
     Triangle(const Triangle &triangle) : Polygon(triangle) {
         brokenLine = triangle.brokenLine;
     }
-    Triangle& operator=(const Triangle&tr){
+
+    Triangle &operator=(const Triangle &tr) {
         brokenLine = tr.brokenLine;
         return *this;
     }
 };
+
 #endif //CODE_TRIANGLE_H

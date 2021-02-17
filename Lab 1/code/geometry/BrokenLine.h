@@ -50,7 +50,7 @@ public:
     }
 
     Point &operator[](const int index) {
-        return points[index%N];
+        return points[index % N];
     }
 
     void SetPoint(int index, const Point &point) {

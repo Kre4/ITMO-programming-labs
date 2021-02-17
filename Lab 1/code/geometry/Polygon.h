@@ -80,7 +80,7 @@ public:
     }
 
     float Perim() {
-        if (P == -1){
+        if (P == -1) {
             float tmp = 0;
             for (int i = 0; i < brokenLine.Size(); i++) {
                 //if (i == brokenLine.Size() - 1) {

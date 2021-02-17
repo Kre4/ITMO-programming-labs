@@ -6,6 +6,7 @@
 #include "geometry/Triangle.h"
 #include "geometry/Trapezoid.h"
 #include "geometry/RegularPolygon.h"
+
 int main() {
     //Point
     std::cout << "Point test\n";
@@ -41,22 +42,22 @@ int main() {
     Polygon polygon(chain);
     std::cout << polygon.Square() << "\n";
     //Triangle
-    std::cout<< "Triangle test\n";
+    std::cout << "Triangle test\n";
     brokenLine.SetSize(3);
     Triangle triangle(brokenLine);
-    std::cout<<triangle.Square()<<" "<<triangle.Perim()<<"\n";
+    std::cout << triangle.Square() << " " << triangle.Perim() << "\n";
     //Trapezoid
-    std::cout<<"Trapezoid test\n";
+    std::cout << "Trapezoid test\n";
     brokenLine.SetSize(4);
-    Point p4(0,1);
+    Point p4(0, 1);
     brokenLine[3] = p4;
     Trapezoid trap(brokenLine);
-    std::cout<<trap.Square()<<" "<<trap.Perim()<<"\n";
+    std::cout << trap.Square() << " " << trap.Perim() << "\n";
     //RegularPolygon
-    std::cout<<"Regular Polygon\n";
-    Point p5(1,1);
+    std::cout << "Regular Polygon\n";
+    Point p5(1, 1);
     brokenLine[2] = p5;
     RegularPolygon regularPolygon(brokenLine);
-    std::cout<<regularPolygon.Square();
+    std::cout << regularPolygon.Square();
     return 0;
 }
