@@ -13,6 +13,14 @@ protected:
         return sqrt(float(pow(p1.GetX() - p2.GetX(), 2) + pow(p1.GetY() - p2.GetY(), 2)));
     }
 
+    float angle(Point &p1, Point &p2, Point &p3) {
+        float A1 = p1.GetY() - p2.GetY();
+        float B1 = p2.GetX() - p1.GetX();
+        float A2 = p2.GetY() - p3.GetY();
+        float B2 = p3.GetX() - p2.GetX();;
+        return acos((A1 * A2 + B1 * B2) / (sqrt(A1 * A1 + B1 * B1) * sqrt(A2 * A2 + B2 * B2))) * 180 / M_PI;
+    }
+
 public:
     explicit Polygon(const BrokenLine &br) {
         brokenLine = br;
@@ -59,29 +67,30 @@ public:
     float Square() {
         if (S == -1) {
             float tmp = 0;
-            for (int i = 0; i < brokenLine.Size() - 1; i++) {
+            for (int i = 0; i < brokenLine.Size(); i++) {
                 tmp += brokenLine[i].GetX() * brokenLine[i + 1].GetY();
                 tmp -= brokenLine[i + 1].GetX() * brokenLine[i].GetY();
             }
-            tmp += brokenLine[brokenLine.Size() - 1].GetX() * brokenLine[0].GetY() -
-                   brokenLine[0].GetX() * brokenLine[brokenLine.Size() - 1].GetY();
-            S = abs(tmp) / 2;
+            //tmp += brokenLine[brokenLine.Size() - 1].GetX() * brokenLine[0].GetY() -
+            //     brokenLine[0].GetX() * brokenLine[brokenLine.Size() - 1].GetY();
+
+            S = tmp / 2;
         }
         return S;
     }
 
     float Perim() {
-        if (P == -1) {
+        if (P == -1){
             float tmp = 0;
             for (int i = 0; i < brokenLine.Size(); i++) {
-                if (i == brokenLine.Size() - 1) {
-                    tmp += len(brokenLine[0], brokenLine[i]);
-                } else
-                    tmp += len(brokenLine[i], brokenLine[i + 1]);
+                //if (i == brokenLine.Size() - 1) {
+                //    tmp += len(brokenLine[0], brokenLine[i]);
+                //} else
+                tmp += len(brokenLine[i], brokenLine[i + 1]);
             }
             P = tmp;
         }
-    return P;
+        return P;
     }
 
 };

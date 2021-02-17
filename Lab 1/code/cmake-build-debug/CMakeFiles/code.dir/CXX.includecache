@@ -22,6 +22,14 @@ C:/JetBrains/Labs/Lab 1/code/geometry/Chain.h
 math.h
 C:/JetBrains/Labs/Lab 1/code/geometry/math.h
 
+C:/JetBrains/Labs/Lab 1/code/geometry/RegularPolygon.h
+Polygon.h
+C:/JetBrains/Labs/Lab 1/code/geometry/Polygon.h
+
+C:/JetBrains/Labs/Lab 1/code/geometry/Trapezoid.h
+Polygon.h
+C:/JetBrains/Labs/Lab 1/code/geometry/Polygon.h
+
 C:/JetBrains/Labs/Lab 1/code/geometry/Triangle.h
 Polygon.h
 C:/JetBrains/Labs/Lab 1/code/geometry/Polygon.h
@@ -41,4 +49,8 @@ geometry/Polygon.h
 C:/JetBrains/Labs/Lab 1/code/geometry/Polygon.h
 geometry/Triangle.h
 C:/JetBrains/Labs/Lab 1/code/geometry/Triangle.h
+geometry/Trapezoid.h
+C:/JetBrains/Labs/Lab 1/code/geometry/Trapezoid.h
+geometry/RegularPolygon.h
+C:/JetBrains/Labs/Lab 1/code/geometry/RegularPolygon.h
 

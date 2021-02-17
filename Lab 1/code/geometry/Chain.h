@@ -25,6 +25,7 @@ public:
         return *this;
     }
 
+
     Chain &operator=(const BrokenLine &bl) {
         brokenLine = bl;
         return *this;
@@ -42,6 +43,7 @@ public:
     void Set(BrokenLine br) {
         brokenLine = br;
     }
+
 };
 
 #endif //CODE_CHAIN_H

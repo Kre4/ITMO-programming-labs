@@ -89,6 +89,12 @@
 		<Unit filename="C:/JetBrains/Labs/Lab 1/code/geometry/Polygon.h">
 			<Option target="code"/>
 		</Unit>
+		<Unit filename="C:/JetBrains/Labs/Lab 1/code/geometry/RegularPolygon.h">
+			<Option target="code"/>
+		</Unit>
+		<Unit filename="C:/JetBrains/Labs/Lab 1/code/geometry/Trapezoid.h">
+			<Option target="code"/>
+		</Unit>
 		<Unit filename="C:/JetBrains/Labs/Lab 1/code/geometry/Triangle.h">
 			<Option target="code"/>
 		</Unit>

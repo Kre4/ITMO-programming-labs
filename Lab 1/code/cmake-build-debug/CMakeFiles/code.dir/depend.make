@@ -4,6 +4,8 @@
 CMakeFiles/code.dir/main.cpp.obj: ../geometry/BrokenLine.h
 CMakeFiles/code.dir/main.cpp.obj: ../geometry/Chain.h
 CMakeFiles/code.dir/main.cpp.obj: ../geometry/Polygon.h
+CMakeFiles/code.dir/main.cpp.obj: ../geometry/RegularPolygon.h
+CMakeFiles/code.dir/main.cpp.obj: ../geometry/Trapezoid.h
 CMakeFiles/code.dir/main.cpp.obj: ../geometry/Triangle.h
 CMakeFiles/code.dir/main.cpp.obj: ../geometry/point.h
 CMakeFiles/code.dir/main.cpp.obj: ../main.cpp

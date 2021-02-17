@@ -15,6 +15,9 @@ public:
         Triangle tr(chain1.GetPoints());
         *this = tr;
     }
+    Triangle(const Triangle &triangle) : Polygon(triangle) {
+        brokenLine = triangle.brokenLine;
+    }
     Triangle& operator=(const Triangle&tr){
         brokenLine = tr.brokenLine;
         return *this;
