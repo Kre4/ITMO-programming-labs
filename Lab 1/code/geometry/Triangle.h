@@ -6,15 +6,17 @@
 class Triangle : public Polygon {
 public:
     explicit Triangle(const BrokenLine &br) : Polygon(br) {
-        brokenLine = br;
+        //brokenLine = br;
         if (brokenLine.Size() != 3) {
             brokenLine = nullptr;
         }
     }
 
     explicit Triangle(Chain &chain1) : Polygon(chain1) {
-        Triangle tr(chain1.GetPoints());
-        *this = tr;
+        //Triangle tr(chain1.GetPoints());
+        if (brokenLine.Size() != 3) {
+            brokenLine = nullptr;
+        }
     }
 
     Triangle(const Triangle &triangle) : Polygon(triangle) {

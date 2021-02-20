@@ -9,7 +9,7 @@ protected:
 public:
     Chain() = default;
 
-    Chain(BrokenLine bl) :
+    Chain(const BrokenLine& bl) :
             brokenLine(bl) {}
 
     BrokenLine GetPoints() {
@@ -31,16 +31,20 @@ public:
         return *this;
     }
 
-    Chain &operator=(const std::nullptr_t aNullptr) {
-        brokenLine = nullptr;
-        return *this;
+
+    Point& operator[](int index) const{
+        return brokenLine[index%brokenLine.Size()];
     }
 
-    int Size() {
+    int Size() const{
         return brokenLine.Size();
     }
 
-    void Set(BrokenLine br) {
+    void SetNull(){
+        brokenLine.SetNull();
+    }
+
+    void Set(BrokenLine &br) {
         brokenLine = br;
     }
 

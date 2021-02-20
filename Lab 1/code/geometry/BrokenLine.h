@@ -34,8 +34,9 @@ public:
         }
     }
 
-    BrokenLine &operator=(const BrokenLine &bl) {
+    BrokenLine& operator=(const BrokenLine &bl) {
         N = bl.N;
+
         points = new Point[N];
         for (int i = 0; i < N; i++) {
             points[i] = bl.points[i];
@@ -43,34 +44,28 @@ public:
         return *this;
     }
 
-    BrokenLine &operator=(const std::nullptr_t aNullptr) {
-        N = 0;
-        points = nullptr;
-        return *this;
+
+    void SetNull(){
+        points = nullptr;;
     }
 
-    Point &operator[](const int index) {
+    Point &operator[](const int index) const{
         return points[index % N];
     }
 
-    void SetPoint(int index, const Point &point) {
+    /*void SetPoint(int index, const Point &point) {
         if (index >= N)
             throw std::out_of_range("Incorrect index");
         points[index] = point;
-    }
+    }*/
 
     void SetSize(int n) {
-        Point *tmp = new Point[N];
-        for (int i = 0; i < N; i++)
-            tmp[i] = points[i];
+        delete [] points;
         N = n;
-        points = new Point[N];
-        for (int i = 0; i < N; i++)
-            points[i] = tmp[i];
-        delete[] tmp;
+        points = new Point[n];
     }
 
-    int Size() {
+    int Size() const {
         return N;
     }
 

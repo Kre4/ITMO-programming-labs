@@ -4,8 +4,9 @@
 #include "Chain.h"
 #include "math.h"
 
-class Polygon : public Chain {
+class Polygon {
 protected:
+    Chain brokenLine;
     float S = -1;
     float P = -1;
 
@@ -13,19 +14,9 @@ protected:
         return sqrt(float(pow(p1.GetX() - p2.GetX(), 2) + pow(p1.GetY() - p2.GetY(), 2)));
     }
 
-    float angle(Point &p1, Point &p2, Point &p3) {
-        float A1 = p1.GetY() - p2.GetY();
-        float B1 = p2.GetX() - p1.GetX();
-        float A2 = p2.GetY() - p3.GetY();
-        float B2 = p3.GetX() - p2.GetX();;
-        return acos((A1 * A2 + B1 * B2) / (sqrt(A1 * A1 + B1 * B1) * sqrt(A2 * A2 + B2 * B2))) * 180 / M_PI;
-    }
-
-public:
-    explicit Polygon(const BrokenLine &br) {
-        brokenLine = br;
+    bool check() {
         if (brokenLine.Size() < 3)
-            brokenLine = nullptr;
+            return false;
         for (int i = 0; i < brokenLine.Size() - 1; i++) {
             float x = brokenLine[i].GetY() - brokenLine[i + 1].GetY();
             float y = brokenLine[i + 1].GetX() - brokenLine[i].GetX();
@@ -40,8 +31,8 @@ public:
                         counter++;
                     } else {
                         if (value / std::abs(value) != znak) {
-                            brokenLine = nullptr;
-                            return;
+                            //brokenLine.SetNull();
+                            return false;
                         }
                     }
                 }
@@ -49,10 +40,18 @@ public:
         }
     }
 
-    explicit Polygon(Chain &chain) {
-        brokenLine = chain.GetPoints();
-        Polygon p(brokenLine);
-        *this = p;
+public:
+    explicit Polygon(const BrokenLine &br) :
+            brokenLine(br) {
+        if (!check())
+            brokenLine.SetNull();
+
+    }
+
+    explicit Polygon(const Chain &chain) :
+            brokenLine(chain) {
+        if (!check())
+            brokenLine.SetNull();
     }
 
     Polygon(const Polygon &polygon) {
@@ -64,15 +63,13 @@ public:
         return *this;
     }
 
-    float Square() {
+    virtual float Square() {
         if (S == -1) {
             float tmp = 0;
             for (int i = 0; i < brokenLine.Size(); i++) {
                 tmp += brokenLine[i].GetX() * brokenLine[i + 1].GetY();
                 tmp -= brokenLine[i + 1].GetX() * brokenLine[i].GetY();
             }
-            //tmp += brokenLine[brokenLine.Size() - 1].GetX() * brokenLine[0].GetY() -
-            //     brokenLine[0].GetX() * brokenLine[brokenLine.Size() - 1].GetY();
 
             S = tmp / 2;
         }

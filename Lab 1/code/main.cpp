@@ -12,7 +12,9 @@ int main() {
     std::cout << "Point test\n";
     Point point(1, 2);
     std::cout << point.GetX() << "\n";
-    point.SetCord(-9, 5);
+    //point.SetCord(-9, 5);
+    point.SetX(-9);
+    point.SetY(5);
     std::cout << point.GetX() << "\n";
     Point point1(5, 6);
     point = point1;
@@ -20,8 +22,8 @@ int main() {
     //Broken Line
     std::cout << "Broken Line test\n";
     BrokenLine brokenLine(2);
-    brokenLine.SetPoint(0, point);
-    brokenLine.SetPoint(1, point1);
+    brokenLine[0]= point;
+    brokenLine[1]= point1;
     std::cout << brokenLine[0].GetX() << "\n";
     //Chain
     std::cout << "Chain test\n";

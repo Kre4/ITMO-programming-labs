@@ -11,22 +11,26 @@ public:
             x(x), y(y) {}
 
 
-    void SetCord(float x, float y) {
-        this->x = x;
-        this->y = y;
-    }
 
-    float GetX() {
+
+    float GetX() const {
         return x;
     }
 
-    float GetY() {
+    float GetY() const {
         return y;
     }
 
-
-    Point &operator=(Point p) {
-        SetCord(p.GetX(), p.GetY());
+    float SetX(float x){
+        this->x = x;
+    }
+    float SetY(float y){
+        this->y = y;
+    }
+    Point &operator=(const Point& p) {
+        //SetCord(p.GetX(), p.GetY());
+        SetX(p.GetX());
+        SetY(p.GetY());
         return *this;
     }
 

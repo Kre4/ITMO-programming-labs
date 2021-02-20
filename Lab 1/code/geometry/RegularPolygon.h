@@ -9,13 +9,6 @@ public:
         brokenLine = bl;
         for (int i = 0; i < brokenLine.Size(); i++) {
             if (len(brokenLine[i], brokenLine[i + 1]) == len(brokenLine[i + 1], brokenLine[i + 2])) {
-                if (angle(brokenLine[i], brokenLine[i + 1], brokenLine[i + 2]) ==
-                    angle(brokenLine[i + 1], brokenLine[i + 2], brokenLine[i + 3])) {
-
-                } else {
-                    brokenLine = nullptr;
-                    return;
-                }
             } else {
                 brokenLine = nullptr;
                 return;
