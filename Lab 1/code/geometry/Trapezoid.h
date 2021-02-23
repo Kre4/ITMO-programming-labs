@@ -4,12 +4,10 @@
 #include "Polygon.h"
 
 class Trapezoid : public Polygon {
-public:
-    Trapezoid(const BrokenLine &bl) : Polygon(bl) {
-        brokenLine = bl;
+private:
+    bool check() {
         if (brokenLine.Size() != 4) {
-            brokenLine = nullptr;
-            return;
+            return false;
         }
         bool isTrapezoid = false;
         for (int i = 0; i < brokenLine.Size() && !isTrapezoid; i++) {
@@ -21,23 +19,30 @@ public:
                 isTrapezoid = true;
             }
         }
-        if (!isTrapezoid)
-            brokenLine = nullptr;
+        return isTrapezoid;
+    }
+public:
+    explicit Trapezoid(const BrokenLine &bl) : Polygon(bl) {
+
+        if (!check())
+            brokenLine.SetNull();
 
     }
 
-    Trapezoid(Chain &chain) : Polygon(chain) {
-        Trapezoid trapezoid(chain.GetPoints());
-        *this = chain;
+    explicit Trapezoid(const Chain &chain) : Polygon(chain) {
+        if (!check())
+            brokenLine.SetNull();
     }
 
     Trapezoid &operator=(const Trapezoid &trapezoid) {
+        if (this == &trapezoid)
+            return *this;
         brokenLine = trapezoid.brokenLine;
         return *this;
     }
 
     Trapezoid(const Trapezoid &trapezoid) : Polygon(trapezoid) {
-        brokenLine = brokenLine;
+        //brokenLine = trapezoid.brokenLine;
     }
 
 };

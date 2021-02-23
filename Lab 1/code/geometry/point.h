@@ -7,7 +7,7 @@ private:
 public:
 
 
-    Point(float x = 0, float y = 0) :
+    explicit Point(float x = 0, float y = 0) :
             x(x), y(y) {}
 
 
@@ -21,14 +21,15 @@ public:
         return y;
     }
 
-    float SetX(float x){
+    void SetX(float x){
         this->x = x;
     }
-    float SetY(float y){
+    void SetY(float y){
         this->y = y;
     }
     Point &operator=(const Point& p) {
-        //SetCord(p.GetX(), p.GetY());
+        if (this == &p)
+            return *this;
         SetX(p.GetX());
         SetY(p.GetY());
         return *this;

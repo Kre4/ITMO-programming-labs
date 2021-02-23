@@ -28,6 +28,7 @@ public:
 
     BrokenLine(const BrokenLine &bl) :
             N(bl.N) {
+        delete [] points;
         points = new Point[N];
         for (int i = 0; i < N; i++) {
             points[i] = bl.points[i];
@@ -35,8 +36,10 @@ public:
     }
 
     BrokenLine& operator=(const BrokenLine &bl) {
+        if (this == &bl)
+            return *this;
         N = bl.N;
-
+        delete [] points;
         points = new Point[N];
         for (int i = 0; i < N; i++) {
             points[i] = bl.points[i];
@@ -46,6 +49,7 @@ public:
 
 
     void SetNull(){
+        N = 0;
         points = nullptr;;
     }
 

@@ -2,7 +2,7 @@
 #define CODE_POLYGON_H
 
 #include "Chain.h"
-#include "math.h"
+#include <cmath>
 
 class Polygon {
 protected:
@@ -38,6 +38,7 @@ protected:
                 }
             }
         }
+        return true;
     }
 
 public:
@@ -59,6 +60,8 @@ public:
     }
 
     Polygon &operator=(const Polygon &polygon) {
+        if (this == &polygon)
+            return *this;
         brokenLine = polygon.brokenLine;
         return *this;
     }

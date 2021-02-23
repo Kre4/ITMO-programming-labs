@@ -46,12 +46,18 @@ int main() {
     //Triangle
     std::cout << "Triangle test\n";
     brokenLine.SetSize(3);
+    brokenLine[0] = p;
+    brokenLine[1] = p1;
+    brokenLine[2] = p2;
     Triangle triangle(brokenLine);
     std::cout << triangle.Square() << " " << triangle.Perim() << "\n";
     //Trapezoid
     std::cout << "Trapezoid test\n";
     brokenLine.SetSize(4);
     Point p4(0, 1);
+    brokenLine[0] = p;
+    brokenLine[1] = p1;
+    brokenLine[2] = p2;
     brokenLine[3] = p4;
     Trapezoid trap(brokenLine);
     std::cout << trap.Square() << " " << trap.Perim() << "\n";

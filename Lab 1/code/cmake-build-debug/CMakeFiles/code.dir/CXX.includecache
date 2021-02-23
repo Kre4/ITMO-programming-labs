@@ -19,8 +19,8 @@ C:/JetBrains/Labs/Lab 1/code/geometry/BrokenLine.h
 C:/JetBrains/Labs/Lab 1/code/geometry/Polygon.h
 Chain.h
 C:/JetBrains/Labs/Lab 1/code/geometry/Chain.h
-math.h
-C:/JetBrains/Labs/Lab 1/code/geometry/math.h
+cmath
+-
 
 C:/JetBrains/Labs/Lab 1/code/geometry/RegularPolygon.h
 Polygon.h

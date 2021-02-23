@@ -9,7 +9,7 @@ protected:
 public:
     Chain() = default;
 
-    Chain(const BrokenLine& bl) :
+    explicit Chain(const BrokenLine& bl) :
             brokenLine(bl) {}
 
     BrokenLine GetPoints() {
@@ -21,6 +21,8 @@ public:
             brokenLine(chain.brokenLine) {}
 
     Chain &operator=(const Chain &chain) {
+        if (this == &chain)
+            return *this;
         brokenLine = chain.brokenLine;
         return *this;
     }
