@@ -83,9 +83,7 @@ public:
         if (P == -1) {
             float tmp = 0;
             for (int i = 0; i < brokenLine.Size(); i++) {
-                //if (i == brokenLine.Size() - 1) {
-                //    tmp += len(brokenLine[0], brokenLine[i]);
-                //} else
+
                 tmp += len(brokenLine[i], brokenLine[i + 1]);
             }
             P = tmp;
