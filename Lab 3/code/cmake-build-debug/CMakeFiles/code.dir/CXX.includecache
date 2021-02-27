@@ -1,0 +1,42 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+C:/JetBrains/Labs/Lab 3/code/Info.h
+map
+-
+iostream
+-
+vector
+-
+sstream
+-
+
+C:/JetBrains/Labs/Lab 3/code/main.cpp
+iostream
+-
+xml/pugixml.h
+C:/JetBrains/Labs/Lab 3/code/xml/pugixml.h
+Info.h
+C:/JetBrains/Labs/Lab 3/code/Info.h
+
+C:/JetBrains/Labs/Lab 3/code/xml/pugiconfig.h
+
+C:/JetBrains/Labs/Lab 3/code/xml/pugixml.h
+pugiconfig.h
+C:/JetBrains/Labs/Lab 3/code/xml/pugiconfig.h
+stddef.h
+-
+exception
+-
+iterator
+-
+iosfwd
+-
+string
+-
+

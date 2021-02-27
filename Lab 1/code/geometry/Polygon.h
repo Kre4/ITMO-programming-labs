@@ -1,22 +1,15 @@
 #ifndef CODE_POLYGON_H
 #define CODE_POLYGON_H
 
+#include "exceptions.h"
 #include "Chain.h"
 #include <cmath>
 
 class Polygon {
-protected:
-    Chain brokenLine;
-    float S = -1;
-    float P = -1;
-
-    float len(Point &p1, Point &p2) {
-        return sqrt(float(pow(p1.GetX() - p2.GetX(), 2) + pow(p1.GetY() - p2.GetY(), 2)));
-    }
-
-    bool check() {
+private:
+    void check() {
         if (brokenLine.Size() < 3)
-            return false;
+            throw polygon_exception();
         for (int i = 0; i < brokenLine.Size() - 1; i++) {
             float x = brokenLine[i].GetY() - brokenLine[i + 1].GetY();
             float y = brokenLine[i + 1].GetX() - brokenLine[i].GetX();
@@ -31,28 +24,35 @@ protected:
                         counter++;
                     } else {
                         if (value / std::abs(value) != znak) {
-                            //brokenLine.SetNull();
-                            return false;
+                            throw polygon_exception();
                         }
                     }
                 }
             }
         }
-        return true;
+
     }
+
+protected:
+    Chain brokenLine;
+    float S = -1;
+    float P = -1;
+
+    float len(Point &p1, Point &p2) {
+        return sqrt(float(pow(p1.GetX() - p2.GetX(), 2) + pow(p1.GetY() - p2.GetY(), 2)));
+    }
+
 
 public:
     explicit Polygon(const BrokenLine &br) :
             brokenLine(br) {
-        if (!check())
-            brokenLine.SetNull();
+        check();
 
     }
 
     explicit Polygon(const Chain &chain) :
             brokenLine(chain) {
-        if (!check())
-            brokenLine.SetNull();
+        check();
     }
 
     Polygon(const Polygon &polygon) {

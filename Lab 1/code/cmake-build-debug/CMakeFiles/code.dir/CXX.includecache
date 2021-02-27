@@ -17,6 +17,8 @@ BrokenLine.h
 C:/JetBrains/Labs/Lab 1/code/geometry/BrokenLine.h
 
 C:/JetBrains/Labs/Lab 1/code/geometry/Polygon.h
+exceptions.h
+C:/JetBrains/Labs/Lab 1/code/geometry/exceptions.h
 Chain.h
 C:/JetBrains/Labs/Lab 1/code/geometry/Chain.h
 cmath
@@ -33,6 +35,8 @@ C:/JetBrains/Labs/Lab 1/code/geometry/Polygon.h
 C:/JetBrains/Labs/Lab 1/code/geometry/Triangle.h
 Polygon.h
 C:/JetBrains/Labs/Lab 1/code/geometry/Polygon.h
+
+C:/JetBrains/Labs/Lab 1/code/geometry/exceptions.h
 
 C:/JetBrains/Labs/Lab 1/code/geometry/point.h
 
@@ -53,4 +57,6 @@ geometry/Trapezoid.h
 C:/JetBrains/Labs/Lab 1/code/geometry/Trapezoid.h
 geometry/RegularPolygon.h
 C:/JetBrains/Labs/Lab 1/code/geometry/RegularPolygon.h
+geometry/exceptions.h
+C:/JetBrains/Labs/Lab 1/code/geometry/exceptions.h
 

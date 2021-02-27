@@ -28,18 +28,18 @@ public:
 
     BrokenLine(const BrokenLine &bl) :
             N(bl.N) {
-        delete [] points;
+//        delete[] points;
         points = new Point[N];
         for (int i = 0; i < N; i++) {
             points[i] = bl.points[i];
         }
     }
 
-    BrokenLine& operator=(const BrokenLine &bl) {
+    BrokenLine &operator=(const BrokenLine &bl) {
         if (this == &bl)
             return *this;
         N = bl.N;
-        delete [] points;
+        delete[] points;
         points = new Point[N];
         for (int i = 0; i < N; i++) {
             points[i] = bl.points[i];
@@ -48,12 +48,12 @@ public:
     }
 
 
-    void SetNull(){
+    void SetNull() {
         N = 0;
         points = nullptr;;
     }
 
-    Point &operator[](const int index) const{
+    Point &operator[](const int index) const {
         return points[index % N];
     }
 
@@ -64,7 +64,7 @@ public:
     }*/
 
     void SetSize(int n) {
-        delete [] points;
+        delete[] points;
         N = n;
         points = new Point[n];
     }

@@ -6,8 +6,10 @@
 #include "geometry/Triangle.h"
 #include "geometry/Trapezoid.h"
 #include "geometry/RegularPolygon.h"
+#include "geometry/exceptions.h"
 
 int main() {
+
     //Point
     std::cout << "Point test\n";
     Point point(1, 2);
@@ -22,8 +24,8 @@ int main() {
     //Broken Line
     std::cout << "Broken Line test\n";
     BrokenLine brokenLine(2);
-    brokenLine[0]= point;
-    brokenLine[1]= point1;
+    brokenLine[0] = point;
+    brokenLine[1] = point1;
     std::cout << brokenLine[0].GetX() << "\n";
     //Chain
     std::cout << "Chain test\n";
@@ -54,13 +56,19 @@ int main() {
     //Trapezoid
     std::cout << "Trapezoid test\n";
     brokenLine.SetSize(4);
-    Point p4(0, 1);
+    Point p4(0, 10); // CHANGE THIS FOR CORRECT DATA
     brokenLine[0] = p;
     brokenLine[1] = p1;
     brokenLine[2] = p2;
     brokenLine[3] = p4;
+    try{
     Trapezoid trap(brokenLine);
-    std::cout << trap.Square() << " " << trap.Perim() << "\n";
+        std::cout << trap.Square() << " " << trap.Perim() << "\n";
+    }
+    catch (std::exception &ex) {
+        std::cout<<"\n"<<ex.what()<<"\n";
+    }
+
     //RegularPolygon
     std::cout << "Regular Polygon\n";
     Point p5(1, 1);

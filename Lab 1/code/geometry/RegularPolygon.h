@@ -5,24 +5,22 @@
 
 class RegularPolygon : public Polygon {
 private:
-    bool check(){
+    void check(){
         for (int i = 0; i < brokenLine.Size(); i++) {
             if (len(brokenLine[i], brokenLine[i + 1]) == len(brokenLine[i + 1], brokenLine[i + 2])) {
             } else {
-                return false;
+                throw regular_polygon_exception();
             }
         }
-        return true;
+
     }
 public:
     explicit RegularPolygon(const BrokenLine &bl) : Polygon(bl) {
-        if (!check())
-            brokenLine.SetNull();
+        check();
     }
 
     explicit RegularPolygon(Chain &chain) : Polygon(chain) {
-        if (!check())
-            brokenLine.SetNull();
+        check();
     }
 
     RegularPolygon(const RegularPolygon &regularPolygon) : Polygon(regularPolygon) {

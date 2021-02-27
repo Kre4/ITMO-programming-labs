@@ -4,21 +4,23 @@
 #include "Polygon.h"
 
 class Triangle : public Polygon {
+private:
+    void check(){
+        if (brokenLine.Size() != 3){
+            throw triangle_exception();
+        }
+    }
 public:
     explicit Triangle(const BrokenLine &br) : Polygon(br) {
-        if (brokenLine.Size() != 3) {
-            brokenLine.SetNull();
-        }
+        check();
     }
 
     explicit Triangle(const Chain &chain1) : Polygon(chain1) {
-        if (brokenLine.Size() != 3) {
-            brokenLine.SetNull();
-        }
+        check();
     }
 
     Triangle(const Triangle &triangle) : Polygon(triangle) {
-        brokenLine = triangle.brokenLine;
+        check();
     }
 
     Triangle &operator=(const Triangle &tr) {

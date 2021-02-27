@@ -5,9 +5,9 @@
 
 class Trapezoid : public Polygon {
 private:
-    bool check() {
+    void check() {
         if (brokenLine.Size() != 4) {
-            return false;
+            throw trapezoid_points_exception();
         }
         bool isTrapezoid = false;
         for (int i = 0; i < brokenLine.Size() && !isTrapezoid; i++) {
@@ -19,19 +19,18 @@ private:
                 isTrapezoid = true;
             }
         }
-        return isTrapezoid;
+        if (!isTrapezoid)
+            throw trapezoid_parallel_exception();
     }
 public:
     explicit Trapezoid(const BrokenLine &bl) : Polygon(bl) {
 
-        if (!check())
-            brokenLine.SetNull();
+        check();
 
     }
 
     explicit Trapezoid(const Chain &chain) : Polygon(chain) {
-        if (!check())
-            brokenLine.SetNull();
+        check();
     }
 
     Trapezoid &operator=(const Trapezoid &trapezoid) {
