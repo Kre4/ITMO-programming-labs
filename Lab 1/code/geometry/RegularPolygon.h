@@ -5,7 +5,7 @@
 
 class RegularPolygon : public Polygon {
 private:
-    void check() const{
+    void check() const {
         for (int i = 0; i < brokenLine.Size(); i++) {
             if (len(brokenLine[i], brokenLine[i + 1]) == len(brokenLine[i + 1], brokenLine[i + 2])) {
             } else {
@@ -14,6 +14,7 @@ private:
         }
 
     }
+
 public:
     explicit RegularPolygon(const BrokenLine &bl) : Polygon(bl) {
         check();
@@ -23,7 +24,7 @@ public:
         check();
     }
 
-    RegularPolygon(const RegularPolygon &regularPolygon) : Polygon(regularPolygon) {
+    explicit RegularPolygon(const RegularPolygon &regularPolygon) : Polygon(regularPolygon) {
 
     }
 

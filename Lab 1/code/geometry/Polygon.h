@@ -6,9 +6,9 @@
 #include "BasicInterface.h"
 #include <cmath>
 
-class Polygon: public BasicInterface {
+class Polygon : public BasicInterface {
 private:
-    void check() const{
+    void check() const {
         if (brokenLine.Size() < 3)
             throw polygon_exception();
         for (int i = 0; i < brokenLine.Size() - 1; i++) {
@@ -39,7 +39,7 @@ protected:
     float S = -1;
     float P = -1;
 
-    float len(Point &p1, Point &p2) {
+    float len(Point &p1, Point &p2) const {
         return sqrt(float(pow(p1.GetX() - p2.GetX(), 2) + pow(p1.GetY() - p2.GetY(), 2)));
     }
 
@@ -67,7 +67,7 @@ public:
         return *this;
     }
 
-    float Square() override{
+    float Square() override {
         if (S == -1) {
             float tmp = 0;
             for (int i = 0; i < brokenLine.Size(); i++) {
@@ -80,7 +80,7 @@ public:
         return S;
     }
 
-    float Perim() override{
+    float Perim() override {
         if (P == -1) {
             float tmp = 0;
             for (int i = 0; i < brokenLine.Size(); i++) {

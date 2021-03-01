@@ -5,11 +5,12 @@
 
 class Triangle : public Polygon {
 private:
-    void check() const{
-        if (brokenLine.Size() != 3){
+    void check() const {
+        if (brokenLine.Size() != 3) {
             throw triangle_exception();
         }
     }
+
 public:
     explicit Triangle(const BrokenLine &br) : Polygon(br) {
         check();
