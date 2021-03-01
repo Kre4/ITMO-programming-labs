@@ -5,7 +5,7 @@
 
 class Trapezoid : public Polygon {
 private:
-    void check() {
+    void check() const{
         if (brokenLine.Size() != 4) {
             throw trapezoid_points_exception();
         }

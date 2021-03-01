@@ -5,7 +5,7 @@
 
 class RegularPolygon : public Polygon {
 private:
-    void check(){
+    void check() const{
         for (int i = 0; i < brokenLine.Size(); i++) {
             if (len(brokenLine[i], brokenLine[i + 1]) == len(brokenLine[i + 1], brokenLine[i + 2])) {
             } else {

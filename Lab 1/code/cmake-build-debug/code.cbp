@@ -80,7 +80,7 @@
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="C:/JetBrains/Labs/Lab 1/code/exceptions/polygon_exception.h">
+		<Unit filename="C:/JetBrains/Labs/Lab 1/code/geometry/BasicInterface.h">
 			<Option target="code"/>
 		</Unit>
 		<Unit filename="C:/JetBrains/Labs/Lab 1/code/geometry/BrokenLine.h">

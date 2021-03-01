@@ -3,11 +3,12 @@
 
 #include "exceptions.h"
 #include "Chain.h"
+#include "BasicInterface.h"
 #include <cmath>
 
-class Polygon {
+class Polygon: public BasicInterface {
 private:
-    void check() {
+    void check() const{
         if (brokenLine.Size() < 3)
             throw polygon_exception();
         for (int i = 0; i < brokenLine.Size() - 1; i++) {
@@ -66,7 +67,7 @@ public:
         return *this;
     }
 
-    virtual float Square() {
+    float Square() override{
         if (S == -1) {
             float tmp = 0;
             for (int i = 0; i < brokenLine.Size(); i++) {
@@ -79,7 +80,7 @@ public:
         return S;
     }
 
-    float Perim() {
+    float Perim() override{
         if (P == -1) {
             float tmp = 0;
             for (int i = 0; i < brokenLine.Size(); i++) {

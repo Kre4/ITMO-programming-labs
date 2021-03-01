@@ -5,7 +5,7 @@
 
 class Triangle : public Polygon {
 private:
-    void check(){
+    void check() const{
         if (brokenLine.Size() != 3){
             throw triangle_exception();
         }
