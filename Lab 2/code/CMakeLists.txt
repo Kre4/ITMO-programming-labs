@@ -3,4 +3,4 @@ project(code)
 
 set(CMAKE_CXX_STANDARD 20)
 
-add_executable(code main.cpp Polynomial.h)
+add_executable(code main.cpp Polynomial_vector.h)

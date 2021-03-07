@@ -6,15 +6,17 @@
 
 #IncludeRegexTransform: 
 
-C:/JetBrains/Labs/Lab 2/code/Polynomial.h
+C:/JetBrains/Labs/Lab 2/code/Polynomial_vector.h
 stdarg.h
 -
 iostream
+-
+vector
 -
 
 C:/JetBrains/Labs/Lab 2/code/main.cpp
 iostream
 -
-Polynomial.h
-C:/JetBrains/Labs/Lab 2/code/Polynomial.h
+Polynomial_vector.h
+C:/JetBrains/Labs/Lab 2/code/Polynomial_vector.h
 
