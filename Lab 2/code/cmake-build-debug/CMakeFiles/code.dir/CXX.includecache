@@ -13,6 +13,8 @@ iostream
 -
 vector
 -
+iomanip
+-
 
 C:/JetBrains/Labs/Lab 2/code/main.cpp
 iostream

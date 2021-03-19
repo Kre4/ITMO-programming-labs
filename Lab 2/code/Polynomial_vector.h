@@ -4,6 +4,7 @@
 #include <stdarg.h>
 #include <iostream>
 #include <vector>
+#include <iomanip>
 
 //template<int N>
 class polynomial_v {
@@ -31,7 +32,7 @@ public:
     }
 
     explicit polynomial_v(int n = 0) {
-        odds.assign(n+1, 0.0);
+        odds.assign(n + 1, 0.0);
 
     }
 
@@ -89,28 +90,28 @@ public:
         return ((-p1) + (*this));
     }
 
-    polynomial_v& operator+=(polynomial_v &p1) {
-        int n = Size()>p1.Size() ? Size(): p1.Size();
-        std::vector<double> result_odds(n+1, 0.0);
-        for (int i = 0; i < n+1; i++) {
-            if (i<Size()+1)
-                result_odds[i]+=odds[i];
-            if (i<p1.Size()+1)
-                result_odds[i]+=p1.odds[i];
+    polynomial_v &operator+=(polynomial_v &p1) {
+        int n = Size() > p1.Size() ? Size() : p1.Size();
+        std::vector<double> result_odds(n + 1, 0.0);
+        for (int i = 0; i < n + 1; i++) {
+            if (i < Size() + 1)
+                result_odds[i] += odds[i];
+            if (i < p1.Size() + 1)
+                result_odds[i] += p1.odds[i];
         }
         odds = result_odds;
         return (*this);
     }
 
     polynomial_v &operator-=(polynomial_v &p1) {
-        int n = Size()>p1.Size() ? Size(): p1.Size();
-        std::vector<double> result_odds(n+1, 0.0);
-        for (int i = 0; i < n+1; i++) {
+        int n = Size() > p1.Size() ? Size() : p1.Size();
+        std::vector<double> result_odds(n + 1, 0.0);
+        for (int i = 0; i < n + 1; i++) {
 
-            if (i<Size()+1)
-                result_odds[i]+=odds[i];
-            if (i<p1.Size()+1)
-                result_odds[i]-=p1.odds[i];
+            if (i < Size() + 1)
+                result_odds[i] += odds[i];
+            if (i < p1.Size() + 1)
+                result_odds[i] -= p1.odds[i];
         }
         odds = result_odds;
         return (*this);
@@ -121,23 +122,23 @@ public:
     //2+6x
     polynomial_v operator*(polynomial_v &p1) {
         polynomial_v p;
-        p+=*this;
-        p*=p1;
+        p += *this;
+        p *= p1;
         return p;
     }
 
     polynomial_v operator/(double value) {
-        polynomial_v p(Size()+1);
+        polynomial_v p(Size() + 1);
         for (int i = 0; i < Size() + 1; i++)
             p.odds[i] = odds[i] / value;
         return p;
     }
 
     polynomial_v &operator*=(polynomial_v &p1) {
-        std::vector<double> new_odds(p1.Size()+Size()+1);
-        for (int i = 0;i<Size()+1;i++){
-            for (int j = 0; j<p1.Size()+1; j++){
-                new_odds[i+j] += odds[i]*p1.odds[j];
+        std::vector<double> new_odds(p1.Size() + Size() + 1);
+        for (int i = 0; i < Size() + 1; i++) {
+            for (int j = 0; j < p1.Size() + 1; j++) {
+                new_odds[i + j] += odds[i] * p1.odds[j];
             }
 
         }
@@ -147,7 +148,7 @@ public:
 
     polynomial_v &operator/=(double value) {
         for (int i = 0; i < Size() + 1; i++)
-            odds[i]/=value;
+            odds[i] /= value;
         return *this;
     }
 
@@ -155,8 +156,24 @@ public:
 
     friend std::istream &operator>>(std::istream &in, polynomial_v &polynomial);
 
-    //⁰ ¹ ² ³ ⁴ ⁵ ⁶ ⁷ ⁸ ⁹
-    ~polynomial_v()= default;
+    //доп функционал
+    void diff() {
+        for (int i = 0; i < odds.size() - 1; i++) {
+            odds[i] = odds[i + 1] * (i + 1);
+        }
+        odds.pop_back();
+    }
+
+    void integrate(int constanta) {
+        odds.resize(odds.size() + 1);
+        for (int i = odds.size() - 1; i > 0; --i) {
+            odds[i] = odds[i - 1] / i;
+        }
+        odds[0] = constanta;
+
+    }
+
+    ~polynomial_v() = default;
 };
 
 std::ostream &operator<<(std::ostream &out, const polynomial_v &polynomial) {
@@ -168,8 +185,10 @@ std::ostream &operator<<(std::ostream &out, const polynomial_v &polynomial) {
         else {
             if (thisOdd == 1)
                 out << "x^" << i << "+";
-            else
-                out << thisOdd << "x^" << i << "+";
+            else {
+                if (thisOdd != 0)
+                    out << std::fixed << std::setprecision(3) << thisOdd << "x^" << i << "+";
+            }
         }
     }
     return out;
