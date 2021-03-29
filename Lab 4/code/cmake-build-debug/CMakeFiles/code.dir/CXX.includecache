@@ -1,0 +1,24 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+C:/JetBrains/Labs/Lab 4/code/main.cpp
+iostream
+-
+vector
+-
+stlupgrade.h
+C:/JetBrains/Labs/Lab 4/code/stlupgrade.h
+algorithm
+-
+
+C:/JetBrains/Labs/Lab 4/code/stlupgrade.h
+iostream
+-
+algorithm
+-
+
