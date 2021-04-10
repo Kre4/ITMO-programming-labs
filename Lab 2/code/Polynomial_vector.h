@@ -11,15 +11,15 @@ class polynomial_v {
 private:
     std::vector<double> odds;
 public:
-    int Size() const {
+    std::size_t Size() const {
         return odds.size() - 1;
     }
 
-    std::vector<double> GetOdds() const {
+    const std::vector<double>& GetOdds() const {
         return odds;
     }
 
-    explicit polynomial_v(int n, std::initializer_list<double> e) {
+    polynomial_v(std::initializer_list<double> e) {
         //odds.resize(n + 1);
         odds.assign(e);
         int i = 0;
@@ -31,7 +31,7 @@ public:
 
     }
 
-    explicit polynomial_v(int n = 0) {
+    explicit polynomial_v(std::size_t n = 0) {
         odds.assign(n + 1, 0.0);
 
     }
@@ -53,23 +53,18 @@ public:
         return *this;
     }
 
-    bool operator==(const polynomial_v &p1) {
-        if (odds.size() != p1.Size())
-            return false;
-        for (int i = 0; i < Size() + 1; i++) {
-            if (odds[i] != p1.odds[i])
-                return false;
-        }
-        return true;
+    bool operator==(const polynomial_v &p1) const{
+
+        return odds == p1.odds;
     }
 
-    bool operator!=(const polynomial_v &p1) {
+    bool operator!=(const polynomial_v &p1) const{
         return !(*this == p1);
     }
 
     //1+x+x^2
     //2+5x+x^2+x^3
-    polynomial_v operator+(polynomial_v &p1) {
+    polynomial_v operator+(const polynomial_v &p1) const{
 
         polynomial_v result(*this);
         result += p1;
@@ -77,7 +72,7 @@ public:
         return result;
     }
 
-    polynomial_v operator-() {
+    polynomial_v operator-() const{
         polynomial_v result(Size());
         for (int i = 0; i < Size() + 1; i++) {
             result.odds[i] = -odds[i];
@@ -85,44 +80,40 @@ public:
         return result;
     }
 
-    polynomial_v operator-(polynomial_v &p1) {
+    polynomial_v operator-(polynomial_v &p1) const{
 
         return ((-p1) + (*this));
     }
 
-    polynomial_v &operator+=(polynomial_v &p1) {
-        int n = Size() > p1.Size() ? Size() : p1.Size();
-        std::vector<double> result_odds(n + 1, 0.0);
-        for (int i = 0; i < n + 1; i++) {
-            if (i < Size() + 1)
-                result_odds[i] += odds[i];
-            if (i < p1.Size() + 1)
-                result_odds[i] += p1.odds[i];
+    polynomial_v &operator+=(const polynomial_v &p1) {
+        if (Size()<p1.Size()){
+            odds.resize(p1.Size()+1);
+
         }
-        odds = result_odds;
+        for (int i=0;i<Size()+1;i++){
+            odds[i]+=p1.odds[i];
+        }
+
         return (*this);
     }
 
     polynomial_v &operator-=(polynomial_v &p1) {
-        int n = Size() > p1.Size() ? Size() : p1.Size();
-        std::vector<double> result_odds(n + 1, 0.0);
-        for (int i = 0; i < n + 1; i++) {
+        if (Size()<p1.Size()){
+            odds.resize(p1.Size()+1);
 
-            if (i < Size() + 1)
-                result_odds[i] += odds[i];
-            if (i < p1.Size() + 1)
-                result_odds[i] -= p1.odds[i];
         }
-        odds = result_odds;
+        for (int i=0;i<Size()+1;i++){
+            odds[i]-=p1.odds[i];
+        }
+
         return (*this);
 
     }
 
     //1+x+3x^2
     //2+6x
-    polynomial_v operator*(polynomial_v &p1) {
-        polynomial_v p;
-        p += *this;
+    polynomial_v operator*(polynomial_v &p1) const{
+        polynomial_v p(*this);
         p *= p1;
         return p;
     }
@@ -166,7 +157,7 @@ public:
 
     void integrate(int constanta) {
         odds.resize(odds.size() + 1);
-        for (int i = odds.size() - 1; i > 0; --i) {
+        for (std::size_t i = odds.size() - 1; i > 0; --i) {
             odds[i] = odds[i - 1] / i;
         }
         odds[0] = constanta;
@@ -195,8 +186,10 @@ std::ostream &operator<<(std::ostream &out, const polynomial_v &polynomial) {
 }
 
 std::istream &operator>>(std::istream &in, polynomial_v &polynomial) {
-
-    for (int i = 0; i < polynomial.Size() + 1; i++) {
+    std::size_t n;
+    in>>n;
+    polynomial.odds.resize(n+1);
+    for (int i = 0; i < polynomial.odds.size(); i++) {
         in >> polynomial.odds[i];
     }
     return in;
