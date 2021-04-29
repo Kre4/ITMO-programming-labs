@@ -5,7 +5,7 @@ class polygon_exception: public std::exception{
 public:
     polygon_exception() noexcept = default;
     const char * what() const noexcept override{
-        return "Incorrect polygon!";
+        return "Incorrect polygon";
     }
 };
 //Triangle

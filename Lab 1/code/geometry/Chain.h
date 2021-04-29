@@ -4,7 +4,7 @@
 #include "BrokenLine.h"
 
 class Chain {
-protected:
+private:
     BrokenLine brokenLine;
 public:
     Chain() = default;
@@ -34,7 +34,7 @@ public:
     }
 
 
-    Point& operator[](int index) const{
+    const Point& operator[](int index) const{
         return brokenLine[index%brokenLine.Size()];
     }
 

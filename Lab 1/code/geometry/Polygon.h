@@ -36,7 +36,7 @@ private:
 
 protected:
     Chain brokenLine;
-    float S = -1;
+    mutable float S = -1;
     float P = -1;
 
     float len(Point &p1, Point &p2) const {

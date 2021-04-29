@@ -20,7 +20,7 @@ public:
         check();
     }
 
-    explicit RegularPolygon(Chain &chain) : Polygon(chain) {
+    explicit RegularPolygon(const Chain &chain) : Polygon(chain) {
         check();
     }
 

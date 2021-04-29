@@ -1,0 +1,34 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+C:/JetBrains/Labs/Lab 5/code/cb_iterator.h
+cstdio
+-
+iterator
+-
+
+C:/JetBrains/Labs/Lab 5/code/circular_buffer.h
+cstdio
+-
+memory
+-
+cb_iterator.h
+C:/JetBrains/Labs/Lab 5/code/cb_iterator.h
+
+C:/JetBrains/Labs/Lab 5/code/main.cpp
+iostream
+-
+vector
+-
+cb_iterator.h
+C:/JetBrains/Labs/Lab 5/code/cb_iterator.h
+circular_buffer.h
+C:/JetBrains/Labs/Lab 5/code/circular_buffer.h
+algorithm
+-
+

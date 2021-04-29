@@ -6,6 +6,8 @@
 
 #IncludeRegexTransform: 
 
+C:/JetBrains/Labs/Lab 1/code/geometry/BasicInterface.h
+
 C:/JetBrains/Labs/Lab 1/code/geometry/BrokenLine.h
 point.h
 C:/JetBrains/Labs/Lab 1/code/geometry/point.h
@@ -21,6 +23,8 @@ exceptions.h
 C:/JetBrains/Labs/Lab 1/code/geometry/exceptions.h
 Chain.h
 C:/JetBrains/Labs/Lab 1/code/geometry/Chain.h
+BasicInterface.h
+C:/JetBrains/Labs/Lab 1/code/geometry/BasicInterface.h
 cmath
 -
 
