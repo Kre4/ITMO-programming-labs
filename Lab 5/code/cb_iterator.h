@@ -1,7 +1,3 @@
-//
-// Created by Денис on 28.04.2021.
-//
-
 #ifndef CODE_CB_ITERATOR_H
 #define CODE_CB_ITERATOR_H
 

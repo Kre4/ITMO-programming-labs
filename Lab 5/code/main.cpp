@@ -3,22 +3,42 @@
 #include "cb_iterator.h"
 #include "circular_buffer.h"
 #include <algorithm>
+#include <list>
 using namespace cbuf;
+#define endl std::cout<<"\n"
 int main() {
 
-    int *jopa = new int[10];
-    *jopa = 5;
-    *(jopa+5) = 2;
-    random_access_iterator<int> iter(jopa);
-    iter[5] = 3;
-    iter+=4;
-    iter++;
-    ring<int> ring({1,5,4,2});
-    std::sort(ring.begin(), ring.end());
-    for (int i=0;i<4;++i){
-        std::cout<<ring.data_[i]<<" ";
+    ring<int> ring({1,2,5,4});
+
+    std::cout<<"\n"<<*ring.begin()<< " "<<*ring.back()<<" "<<*ring.end()<<"\nKeks";
+    endl;
+    for (int i = 0; i < ring.size(); ++i) {
+        std::cout << ring[i] << " ";
     }
-        //std::cout<<"\n"<<*ring.begin()<< " "<<*ring.end()<<"\n";
+    endl;
+
+    ring.resize(3);
+    std::cout<<"\n"<<*ring.begin()<< " "<<*ring.back()<<" "<<*ring.end()<<"\nKeks";
+    endl;
+    for (int i = 0; i < ring.size(); ++i) {
+        std::cout << ring[i] << " ";
+    }
+    endl;
+//    ring.push_back(10);
+//    for (int i = 0; i < 4; ++i) {
+//        std::cout << ring.data_[i] << " ";
+//    }
+    endl;
+//    std::sort(ring.begin(), ring.end());
+//
+//
+//    std::cout<<"\n"<<*ring.begin()<< " "<<*ring.back()<<"\n";
+//    endl;
+//    for (int i = 0; i < 5; ++i) {
+//        std::cout << ring.data_[i] << " ";
+//    }
+
+    std::cout<<"Size: "<<ring.size()<<"\nCapacity: "<<ring.capacity();
 
     return 0;
 }
