@@ -8,100 +8,94 @@
 namespace cbuf {
     template<typename Tp_, class Alloc_ = std::allocator<Tp_>>
     class ring {
+        //getting allocator info
+    public:
+        using allocator_type = Alloc_;
+        using allocator_pointer = typename std::allocator_traits<Alloc_>::pointer;
+        using alloc_traits = std::allocator_traits<Alloc_>;
 
     public:
-        explicit ring(size_t _n) : capacity_(_n) {
-            if (std::is_default_constructible_v<Tp_>)
-                fill_with({Tp_()}, false);
-            else
-                throw std::runtime_error("Type of the circular buffer has no default constructor");
-        }
+        //constructors
+        explicit ring(size_t _n, const allocator_type &_alloc = allocator_type()) : capacity_(_n), alloc_(_alloc) {
 
-        explicit ring(size_t _n, Tp_ _value) : capacity_(_n) {
-
-            fill_with({_value});
+            fill_with({}, false);
 
         }
 
-        explicit ring(std::initializer_list<Tp_> _list) : capacity_(_list.size()) {
+        explicit ring(size_t _n, Tp_ _value, const allocator_type &_alloc = allocator_type()) : capacity_(_n),
+                                                                                                alloc_(_alloc) {
+
+            fill_with(_value);
+
+        }
+
+        explicit ring(std::initializer_list<Tp_> _list, const allocator_type &_alloc = allocator_type()) : capacity_(
+                _list.size()), alloc_(_alloc) {
 
             fill_with(_list);
         }
 
         ~ring() {
-            delete[] data_;
+            alloc_.deallocate(data_, capacity_);
         }
 
+        // functions for the buffer
         void resize(size_t _n) {
             if (_n == capacity())
                 return;
 
-            size_t size = this->size();
-            Tp_ *tmp = new Tp_[_n];
+
+            Tp_ *tmp = alloc_.allocate(_n);
             size_t i = 0;
-            if (_n < capacity()) {
-                //last_ = first_ + _n;
-                for (; i < _n; ++i)
-                    tmp[i] = data_[i];
-
-            } else {
-
-                for (; i < capacity_; ++i)
-                    tmp[i] = data_[i];
-                for (; i < _n; ++i)
-                    tmp[i] = Tp_();
-
-            }
-            delete[] data_;
-            data_ = new Tp_[_n];
-            for (i = 0; i < _n; ++i)
-                data_[i] = tmp[i];
-
-            first_ = random_access_iterator(data_);
-            if (_n > capacity_)
-                last_ = first_ + size;
-            else
-                last_ = first_ + _n;
-            capacity_ = _n;
-
-            delete[] tmp;
-        }
-
-//        void resize(size_t _n) {
-//            Tp_ *tmp = new Tp_[_n];
-//            size_t size = (_n > capacity_) ? capacity_ : _n;
-//            if (size <= capacity_) {
+//            if (_n < capacity()) {
+//                //last_ = first_ + _n;
+//                for (; i < _n; ++i)
+//                    tmp[i] = data_[i];
 //
-//                for (size_t i = 0; i != size; ++i)
-//                    tmp[i] = data_[i];
 //            } else {
-//                size_t i;
-//                for (i = 0; i != capacity_; ++i)
+//
+//                for (; i < capacity_; ++i)
 //                    tmp[i] = data_[i];
-//                for (; i != size; ++i)
-//                    tmp[i] = Tp_();
+//
 //
 //            }
-//            delete[] data_;
-//            data_ = new Tp_[_n];
-//            for (size_t i = 0; i != size; ++i)
-//                data_[i] = tmp[i];
-//            first_ = random_access_iterator(data_);
-//            if (size <= capacity_)
-//                last_ = random_access_iterator(data_ + size - 1);
-//            delete[] tmp;
-//
-//        }
+            size_t size = this->size();
+            for (i = 0; first_ != last_, i != _n; ++first_, ++i) {
+                tmp[i] = *first_;
+                //if (i == _n-1)
+                //    first_ = last_;
+            }
+            alloc_.deallocate(data_, capacity_);
+            data_ = allocate(_n);
+            first_ = random_access_iterator(data_);
+            last_ = first_;
+            for (i = 0; (i < _n) && (i < size); ++i, ++last_)
+                alloc_.construct(std::addressof(*last_), tmp[i]);
 
-        random_access_iterator<Tp_> begin() const {
+            // FIX EVERING THAT IS LOWER
+            if (_n > capacity_) {
+                last_ = first_ + size;
+
+            } else {
+                last_ = first_ + _n;
+                l_pos_ %= _n;
+
+            }
+            capacity_ = _n;
+
+            alloc_.deallocate(tmp, capacity_);
+        }
+
+
+        random_access_iterator <Tp_> begin() const {
             return first_;
         }
 
-        random_access_iterator<Tp_> end() const {
+        random_access_iterator <Tp_> end() const {
             return last_;
         }
 
-        random_access_iterator<Tp_> back() const {
+        random_access_iterator <Tp_> back() const {
             return last_ - 1;
         }
 
@@ -115,80 +109,117 @@ namespace cbuf {
 
         void push_back(Tp_ _val) {
             if (random_access_iterator<Tp_>(data_ + capacity_) != last_) {
-                *last_ = _val;
+                alloc_.construct(std::addressof(*last_), _val);
+                //*last_ = _val;
                 ++last_;
 
             } else {
-                for (size_t i = 1; i < capacity_; ++i)
-                    std::swap(data_[i - 1], data_[i]);
-                data_[capacity_ - 1] = _val;
+                //data_[l_pos_] = _val;
+                alloc_.construct(std::addressof(data_[l_pos_]), _val);
+
             }
+            inc(l_pos_);
         }
 
         void push_front(Tp_ _val) {
-            if (random_access_iterator<Tp_>(data_) == first_) {
-                size_t size = this->size();
-                if (size != 0) {
-                    for (long long i = capacity() - 1; i >= 1; --i)
-                        std::swap(data_[i], data_[i - 1]);
-
-                }
-                if (this->size() != capacity())
-                    ++last_;
-
-                *first_ = _val;
-            } else {
+            if (random_access_iterator<Tp_>(data_) != first_) {
                 --first_;
-                *first_ = _val;
+                alloc_.construct(std::addressof(*first_), _val);
+                dec(f_pos_);
+            } else {
+                alloc_.construct(std::addressof(data_[f_pos_]), _val);
+                dec(f_pos_);
             }
 
         }
 
         void pop_back() {
-            if (size() != 0)
-                --last_;
+            if (size() != 0) {
+                dec(l_pos_);
+                alloc_.destroy(data_ + l_pos_);
+                size_t s = last_ - random_access_iterator(data_);
+                if (l_pos_ == last_ - random_access_iterator(data_) - 1)
+                    --last_;
+
+            }
         }
 
         void pop_front() {
-            if (size() != 0)
-                ++first_;
+            if (size() != 0) {
+                alloc_.destroy(data_ + f_pos_);
+                if (f_pos_ == first_ - random_access_iterator(data_))
+                    ++first_;
+
+                inc(f_pos_);
+            }
         }
 
         Tp_ &operator[](size_t index) {
 
-            return *(first_ + index);
+            return *(data_ + index);
 
         }
 
-    protected:
-        void fill_with(std::initializer_list<Tp_> _list, bool _haveItems = true) {
-            data_ = new Tp_[capacity_];
+    private:
+        allocator_pointer allocate(size_t &n) {
+            return (n == 0) ? (nullptr) : (alloc_.allocate(n));
+
+        }
+
+        void fill_with(std::initializer_list<Tp_> &_list, bool _haveItems = true) {
+            data_ = allocate(capacity_);
             first_ = random_access_iterator(data_);
             last_ = random_access_iterator(data_);
-
-            if (_haveItems) {
-                last_ += capacity_;
-            }
+            f_pos_ = 0;
+            l_pos_ = 0;
+            if (!_haveItems)
+                return;
             auto iter = _list.begin();
-            if (_list.size() > 1)
-                for (size_t i = 0; i != capacity_; ++i, ++iter)
-                    data_[i] = *iter;
-            else
-                for (size_t i = 0; i != capacity_; ++i)
-                    data_[i] = *iter;
+            for (size_t i = 0; i != capacity_; ++i, ++iter) {
+                //alloc_traits::construct(alloc_,std::addressof(*last_),*iter);
+                alloc_.construct(std::addressof(*last_), *iter);
+                ++last_;
+                inc(l_pos_);
+            }
         }
 
-        void increment(random_access_iterator<Tp_> &_iter) {
-            if (last_ - capacity_ + 1 == first_) {}
+        void fill_with(Tp_ &_val) {
+            data_ = allocate(capacity_);
+            first_ = random_access_iterator(data_);
+            last_ = random_access_iterator(data_);
+            f_pos_ = 0;
+            l_pos_ = 0;
+            for (size_t i = 0; i != capacity_; ++i) {
+                //alloc_traits::construct(alloc_,std::addressof(*last_),_val);
+                alloc_.construct(std::addressof(*last_), _val);
+                ++last_;
+                inc(l_pos_);
+            }
         }
+
+        void inc(size_t &_pos) {
+            ++_pos;
+            _pos %= capacity_;
+        }
+
+        void dec(size_t &_pos) {
+            if (_pos == 0)
+                _pos = capacity_;
+            --_pos;
+        }
+
 
     public:
-
-        Tp_ *data_ = nullptr;
+        allocator_type alloc_;
+        //allocator_pointer data_;
+        Tp_ *data_;
         size_t capacity_;
 
-        random_access_iterator<Tp_> first_;
-        random_access_iterator<Tp_> last_;
+        size_t f_pos_;
+        size_t l_pos_;
+
+        random_access_iterator <Tp_> first_;
+        random_access_iterator <Tp_> last_;
     };
 
 }
