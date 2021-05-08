@@ -12,7 +12,7 @@ namespace stl {
     all_of(Iterator begin, Iterator end, UnaryPredicate predicate) {
 
         for (Iterator it = begin; it != end; ++it) {
-            if (predicate(*it))
+            if (!predicate(*it))
                 return false;
         }
         return true;
@@ -45,17 +45,18 @@ namespace stl {
                 return false;
             }
         }
-        return true;
+        return counter == 1;
     }
 
     template<typename Iterator, class Compare>
     bool
     is_sorted(Iterator begin, Iterator end, Compare comp) {
-        if (begin == end-1)
+        if (begin == end)
             return true;
         end--;
-        for (Iterator it = begin; it != end; ++it) {
-            if (!comp(*it, *(it + 1)))
+
+        for (Iterator it = begin; it != end;++begin) {
+            if (comp(*(++it), *(begin)))
                 return false;
         }
         return true;
@@ -64,20 +65,20 @@ namespace stl {
     template<typename Iterator, class Compare>
     bool
     is_partitioned(Iterator begin, Iterator end, Compare comp) {
-        for(;begin!=end && comp(*begin);++begin){
+        for (; begin != end && comp(*begin); ++begin) {
 
         }
-        while (begin != end){
-            if (comp(*  begin)) return false;
+        while (begin != end) {
+            if (comp(*begin)) return false;
             ++begin;
         }
         return true;
     }
 
-    template<typename Iterator, class Compare>
+    template<typename Iterator, class UnaryPredicate>
     Iterator
-    find_if_not(Iterator begin, Iterator end, Compare comp){
-        for (;begin!=end;++begin){
+    find_if_not(Iterator begin, Iterator end, UnaryPredicate comp) {
+        for (; begin != end; ++begin) {
             if (!comp(*begin))
                 return begin;
         }
@@ -86,10 +87,10 @@ namespace stl {
 
     template<typename Iterator>
     Iterator
-    find_backward(Iterator begin, Iterator end, Type &_val){
+    find_backward(Iterator begin, Iterator end, Type &_val) {
         Iterator result = end;
-        for (;begin!=end;++begin){
-            if (*begin == _val){
+        for (; begin != end; ++begin) {
+            if (*begin == _val) {
                 result = begin;
             }
         }
@@ -97,14 +98,18 @@ namespace stl {
     }
 
     template<typename Iterator, class Compare>
-    bool is_palindrome(Iterator begin, Iterator end, Compare comp){
-        if (begin == end - 1)
+    bool is_palindrome(Iterator begin, Iterator end, Compare comp) {
+        if (begin == end)
             return true;
         --end;
-        size_t size = end -  begin + 1;
-        for (int i=0; i != size/2; ++i, ++begin, --end){
-            if (comp(*begin)!= comp(*end))
+        //size_t size = end - begin + 1;
+        for (; begin != end;) { // 1 2 2 1
+            if (!comp(*begin, *end))
                 return false;
+            ++begin;
+            if (begin == end)
+                return true;
+            --end;
         }
         return true;
     }
