@@ -5,6 +5,9 @@
 #include <memory>
 #include "cb_iterator.h"
 #include <iostream>
+
+// The structure is that, buffer has one extra element
+// The same as in any stl container
 namespace cbuf {
     template<typename Tp_, class Alloc_ = std::allocator<Tp_>>
     class ring {
@@ -16,14 +19,14 @@ namespace cbuf {
 
     public:
         //constructors
-        explicit ring(size_t _n, const allocator_type &_alloc = allocator_type()) : capacity_(_n), alloc_(_alloc),
+        explicit ring(size_t _n, const allocator_type &_alloc = allocator_type()) : capacity_(_n + 1), alloc_(_alloc),
                                                                                     size_(0) {
 
             fill_with({}, false);
 
         }
 
-        explicit ring(size_t _n, Tp_ _value, const allocator_type &_alloc = allocator_type()) : capacity_(_n),
+        explicit ring(size_t _n, Tp_ _value, const allocator_type &_alloc = allocator_type()) : capacity_(_n + 1),
                                                                                                 alloc_(_alloc),
                                                                                                 size_(_n) {
 
@@ -32,7 +35,7 @@ namespace cbuf {
         }
 
         explicit ring(std::initializer_list<Tp_> _list, const allocator_type &_alloc = allocator_type()) : capacity_(
-                _list.size()), alloc_(_alloc), size_(_list.size()) {
+                _list.size() + 1), alloc_(_alloc), size_(_list.size()) {
 
             fill_with(_list);
         }
@@ -61,7 +64,8 @@ namespace cbuf {
             dft delta = last_ - fixed;
 
             for (i = 0; i != capacity_; ++i) {
-                alloc_.destroy(data_ + i);
+                destroy(data_ + i);
+                //alloc_.destroy(data_ + i);
             }
             alloc_.deallocate(data_, capacity_);
 
@@ -71,30 +75,29 @@ namespace cbuf {
             first_ = random_access_iterator(data_, data_, capacity_);
 
             last_ = first_ + delta;
-            if (_n< capacity_){
-                size_=_n;
+            if (_n < capacity_) {
+                size_ = _n;
             }
             capacity_ = _n;
 
         }
 
 
-        random_access_iterator<Tp_> begin() const {
-            return random_access_iterator<Tp_>(data_, first_.ptr_, capacity_);
+        random_access_iterator<Tp_> begin() {
+            return first_;
         }
+
 
         random_access_iterator<Tp_> end() {
             //last_ = first_ + capacity_;
-            return random_access_iterator<Tp_>(data_ + capacity_, first_.ptr_, capacity_);
+            return last_;
         }
+
 
         Tp_ &back() {
-            return *(last_);
+            return *(last_ - 1);
         }
 
-        const Tp_ &back() const {
-            return *(last_);
-        }
 
         size_t size() const {
             return size_;
@@ -105,52 +108,55 @@ namespace cbuf {
         }
 
 
-        void push_back(Tp_ _val) {
-            ++size_;
-            if (size_ == capacity_+1)
-                --size_;
-            alloc_.destroy(last_.ptr_);
+        void push_back(const Tp_ &_val) {
+
+            if (size_ != capacity_)
+                ++size_;
             alloc_.construct(std::addressof(*last_), _val);
             ++last_;
-            if (last_ <= first_)
+            if (last_ == first_) {
+                destroy(last_.ptr_);
+                // alloc_.destroy(last_.ptr_);
                 ++first_;
+            }
         }
 
-        void push_front(Tp_ _val) {
+        void push_front(const Tp_ &_val) {
+            if (size_ != capacity_)
+                ++size_;
             --first_;
-            alloc_.destroy(first_.ptr_);
-            alloc_.construct(std::addressof(*first_), _val);
-            if (last_ == first_)
+            if (first_ == last_) {
                 --last_;
+                destroy(last_.ptr_);
+                //alloc_.destroy(last_.ptr_);
+            }
+            alloc_.construct(std::addressof(*first_), _val);
+
         }
 
         void pop_back() {
-            if (size() != 0) {
-                --size_;
-                --last_;
-                alloc_.destroy(last_.ptr_);
-                if (last_+1 == first_)
-                    --first_;
+            if (size_ == 0)
+                return;
+            --size_;
+            --last_;
+            destroy(last_.ptr_);
+            if (last_ == first_ && size_ != 0) {
+                --first_;
             }
         }
 
         void pop_front() {
-            if (size() != 0) {
-                --size_;
-                alloc_.destroy(first_.ptr_);
-                if (first_ != last_)
-                ++first_;
-
-
-
-            }
+            if (size_ == 0)
+                return;
+            --size_;
+            destroy(first_.ptr_);
+            ++first_;
         }
 
-        Tp_ &operator[](size_t index) {
-
+        Tp_ &operator[](const size_t &index) {
             return *(first_ + index);
-
         }
+
 
     private:
         allocator_pointer allocate(size_t &n) {
@@ -158,23 +164,31 @@ namespace cbuf {
 
         }
 
-        void fill_with(std::initializer_list<Tp_> _list, bool _haveItems = true) {
+        void destroy(Tp_ *item) {
+            alloc_.destroy(item);
+        }
+
+        void fill_with(std::initializer_list<Tp_> _list = {}, bool _haveItems = true) {
             data_ = allocate(capacity_);
+            --capacity_;
             first_ = random_access_iterator(data_, data_, capacity_);
             last_ = random_access_iterator(data_, data_, capacity_);
 
-            if (!_haveItems)
+            if (!_haveItems) {
                 return;
+            }
             auto iter = _list.begin();
             for (size_t i = 0; i != capacity_; ++i, ++iter) {
                 //alloc_traits::construct(alloc_,std::addressof(*last_),*iter);
                 alloc_.construct(std::addressof(*last_), *iter);
                 ++last_;
             }
+            ++last_;
         }
 
         void fill_with(Tp_ &_val) {
-            data_ = allocate(capacity_);
+            data_ = allocate(capacity_ + 1);
+            --capacity_;
             first_ = random_access_iterator(data_, first_, capacity_);
             last_ = random_access_iterator(data_, first_, capacity_);
 
@@ -184,10 +198,12 @@ namespace cbuf {
                 ++last_;
 
             }
+            ++last_;
         }
 
 
     public:
+
         allocator_type alloc_;
         //allocator_pointer data_;
         Tp_ *data_;
@@ -195,7 +211,8 @@ namespace cbuf {
         size_t size_;
 
         random_access_iterator<Tp_> first_;
-        random_access_iterator<Tp_> last_;
+        random_access_iterator<Tp_> last_; // contains next element after the last edited.
+
     };
 
 }
