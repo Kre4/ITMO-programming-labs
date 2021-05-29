@@ -16,5 +16,12 @@ public:
     side(color C){
         colors.assign(3,std::vector<color>(3,C));
     }
+    std::vector<color>& operator[](int i){
+        return colors[i];
+    }
+    side& operator=(const side& sd){
+        colors = sd.colors;
+        return *this;
+    }
 };
 #endif //CODE_SIDE_H
