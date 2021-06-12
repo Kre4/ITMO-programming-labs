@@ -24,6 +24,9 @@
 				<Option type="1"/>
 				<Option compiler="gcc"/>
 				<Compiler>
+					<Add directory="C:/JetBrains/Labs/Lab 6/code/OpenGL"/>
+					<Add directory="C:/JetBrains/Labs/Lab 6/code/OpenGL/include"/>
+					<Add directory="C:/JetBrains/Labs/Lab 6/code/OpenGL/lib"/>
 					<Add directory="C:/MINGW/mingw32/bin/../lib/gcc/i686-w64-mingw32/8.1.0/include/c++"/>
 					<Add directory="C:/MINGW/mingw32/bin/../lib/gcc/i686-w64-mingw32/8.1.0/include/c++/i686-w64-mingw32"/>
 					<Add directory="C:/MINGW/mingw32/bin/../lib/gcc/i686-w64-mingw32/8.1.0/include/c++/backward"/>
@@ -45,6 +48,9 @@
 				<Option type="1"/>
 				<Option compiler="gcc"/>
 				<Compiler>
+					<Add directory="C:/JetBrains/Labs/Lab 6/code/OpenGL"/>
+					<Add directory="C:/JetBrains/Labs/Lab 6/code/OpenGL/include"/>
+					<Add directory="C:/JetBrains/Labs/Lab 6/code/OpenGL/lib"/>
 					<Add directory="C:/MINGW/mingw32/bin/../lib/gcc/i686-w64-mingw32/8.1.0/include/c++"/>
 					<Add directory="C:/MINGW/mingw32/bin/../lib/gcc/i686-w64-mingw32/8.1.0/include/c++/i686-w64-mingw32"/>
 					<Add directory="C:/MINGW/mingw32/bin/../lib/gcc/i686-w64-mingw32/8.1.0/include/c++/backward"/>
@@ -84,6 +90,12 @@
 			<Option target="code"/>
 		</Unit>
 		<Unit filename="C:/JetBrains/Labs/Lab 6/code/main.cpp">
+			<Option target="code"/>
+		</Unit>
+		<Unit filename="C:/JetBrains/Labs/Lab 6/code/mini_cube.h">
+			<Option target="code"/>
+		</Unit>
+		<Unit filename="C:/JetBrains/Labs/Lab 6/code/rubik.h">
 			<Option target="code"/>
 		</Unit>
 		<Unit filename="C:/JetBrains/Labs/Lab 6/code/side.h">

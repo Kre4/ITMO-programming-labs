@@ -77,6 +77,7 @@ include CMakeFiles/code.dir/progress.make
 include CMakeFiles/code.dir/flags.make
 
 CMakeFiles/code.dir/main.cpp.obj: CMakeFiles/code.dir/flags.make
+CMakeFiles/code.dir/main.cpp.obj: CMakeFiles/code.dir/includes_CXX.rsp
 CMakeFiles/code.dir/main.cpp.obj: ../main.cpp
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="C:\JetBrains\Labs\Lab 6\code\cmake-build-debug\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/code.dir/main.cpp.obj"
 	C:\MINGW\mingw32\bin\g++.exe  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\code.dir\main.cpp.obj -c "C:\JetBrains\Labs\Lab 6\code\main.cpp"
