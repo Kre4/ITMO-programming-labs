@@ -38,6 +38,7 @@ public:
         }
         std::cout<<color[i]<<" ";
     }
+    //Z
     void rotateX0Y() {
         auto tmp = color[5];
         color[5] = color[3];
@@ -45,7 +46,7 @@ public:
         color[4] = color[2];
         color[2] = tmp;
     }
-
+    //Y
     void rotateX0Z() {
         auto tmp = color[2];
         color[2] = color[1];
@@ -53,7 +54,7 @@ public:
         color[3] = color[0];
         color[0] = tmp;
     }
-
+    //X
     void rotateY0Z() {
         auto tmp = color[0];
         color[0] = color[4];
