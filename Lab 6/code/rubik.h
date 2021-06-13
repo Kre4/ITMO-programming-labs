@@ -3,6 +3,9 @@
 
 #include "mini_cube.h"
 #include <iostream>
+#include <stdlib.h>
+#include <time.h>
+#include <random>
 
 #define WHITE 0
 #define BLUE 1
@@ -81,16 +84,12 @@ public:
                 for (int i = 0; i < 3; ++i)
                     for (int j = 0; j < 3; ++j)
                         a[i][j][k].rotateX0Y();
-//                for (int i = 0; i < 3; ++i)
-//                    for (int j = i; j < 3; ++j)
-//                        std::swap(a[i][j][k], a[j][i][k]);
-//                for (int i = 0; i < 3; ++i)
-//                    std::swap(a[i][0][k], a[i][2][k]);
-                std::swap(a[0][0][k],a[0][2][k]);
-                std::swap(a[0][2][k],a[2][2][k]);
+
+                std::swap(a[0][0][k], a[0][2][k]);
+                std::swap(a[0][2][k], a[2][2][k]);
                 std::swap(a[2][2][k], a[2][0][k]);
 
-                std::swap(a[1][0][k],a[0][1][k]);
+                std::swap(a[1][0][k], a[0][1][k]);
                 std::swap(a[0][1][k], a[1][2][k]);
                 std::swap(a[1][2][k], a[2][1][k]);
             }
@@ -116,14 +115,29 @@ public:
                     for (int k = 0; k < 3; ++k)
                         a[i][j][k].rotateX0Z();
 
-                std::swap(a[0][j][0],a[2][j][0]);
+                std::swap(a[0][j][0], a[2][j][0]);
                 std::swap(a[2][j][0], a[2][j][2]);
                 std::swap(a[2][j][2], a[0][j][2]);
 
-                std::swap(a[1][j][0],a[2][j][1]);
-                std::swap(a[2][j][1],a[1][j][2]);
+                std::swap(a[1][j][0], a[2][j][1]);
+                std::swap(a[2][j][1], a[1][j][2]);
                 std::swap(a[1][j][2], a[0][j][1]);
             }
+        }
+
+    }
+
+    void random_shuffle() {
+        std::default_random_engine engn;
+        std::uniform_int_distribution<short> dist(0, 5);
+        for (int i = 0; i < 50; ++i) {
+
+            short f = dist(engn);
+            short dir = dist(engn);
+            dir%=2;
+            if (dir == 0)
+                dir = -1;
+            rotate_90_degree(f, dir);
         }
 
     }
@@ -134,7 +148,7 @@ public:
             for (int i = 0; i < 3; ++i)
                 std::cout << "  ";
             for (int i = 0; i < 3; ++i)
-                a[i][2-j][2].out(0);
+                a[i][2 - j][2].out(0);
 
 
             for (int i = 0; i < 3; ++i)
@@ -144,9 +158,9 @@ public:
         //left - front - right - correct
         for (int j = 0; j < 3; ++j) {
             for (int i = 0; i < 3; ++i)
-                a[0][2-i][2 - j].out(2);
+                a[0][2 - i][2 - j].out(2);
             for (int i = 0; i < 3; ++i)
-                a[i][0][2-j].out(4);
+                a[i][0][2 - j].out(4);
             for (int i = 0; i < 3; ++i)
                 a[2][i][2 - j].out(3);
             std::cout << "\n";

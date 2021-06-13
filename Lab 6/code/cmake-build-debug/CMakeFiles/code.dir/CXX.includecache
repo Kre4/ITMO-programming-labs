@@ -13,6 +13,8 @@ vector
 -
 rubik.h
 C:/JetBrains/Labs/Lab 6/code/rubik.h
+random
+-
 
 C:/JetBrains/Labs/Lab 6/code/mini_cube.h
 cstdio
@@ -28,5 +30,11 @@ C:/JetBrains/Labs/Lab 6/code/rubik.h
 mini_cube.h
 C:/JetBrains/Labs/Lab 6/code/mini_cube.h
 iostream
+-
+stdlib.h
+-
+time.h
+-
+random
 -
 
