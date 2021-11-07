@@ -1,3 +1,0 @@
-C:/JetBrains/Labs/Lab 6/code/cmake-build-debug/CMakeFiles/code.dir
-C:/JetBrains/Labs/Lab 6/code/cmake-build-debug/CMakeFiles/edit_cache.dir
-C:/JetBrains/Labs/Lab 6/code/cmake-build-debug/CMakeFiles/rebuild_cache.dir
